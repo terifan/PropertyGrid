@@ -6,7 +6,7 @@ import javax.swing.Icon;
 
 public class FieldValueProvider<T>
 {
-	public String getText(Tree<T> aTree, int aColumnIndex, T aValue)
+	public String getText(PropertyGrid<T> aTree, int aColumnIndex, T aValue)
 	{
 		Field field = getField(aTree, aColumnIndex, aValue);
 
@@ -22,7 +22,7 @@ public class FieldValueProvider<T>
 	}
 
 
-	public Icon getIcon(Tree<T> aTree, T aValue)
+	public Icon getIcon(PropertyGrid<T> aTree, T aValue)
 	{
 		Class<? extends Object> cls = aValue.getClass();
 
@@ -44,7 +44,7 @@ public class FieldValueProvider<T>
 	}
 
 
-	public Icon getIcon(Tree<T> aTree, int aColumnIndex, T aValue)
+	public Icon getIcon(PropertyGrid<T> aTree, int aColumnIndex, T aValue)
 	{
 		Field field = getField(aTree, aColumnIndex, aValue);
 
@@ -63,9 +63,9 @@ public class FieldValueProvider<T>
 	}
 
 
-	private Field getField(Tree<T> aTree, int aColumnIndex, T aValue)
+	private Field getField(PropertyGrid<T> aTree, int aColumnIndex, T aValue)
 	{
-		Column column = aTree.getColumns().get(aColumnIndex);
+		PropertyGridColumn column = aTree.getColumns().get(aColumnIndex);
 
 		try
 		{

@@ -10,12 +10,12 @@ import org.terifan.ui.TextBox;
 import org.terifan.ui.Utilities;
 
 
-public class TreeColumnHeader extends JPanel
+public class PropertyGridColumnHeader extends JPanel
 {
-	protected Tree mTree;
+	protected PropertyGrid mTree;
 
 
-	protected TreeColumnHeader(Tree aTree)
+	protected PropertyGridColumnHeader(PropertyGrid aTree)
 	{
 		mTree = aTree;
 	}
@@ -24,7 +24,7 @@ public class TreeColumnHeader extends JPanel
 	@Override
 	protected void paintComponent(Graphics aGraphics)
 	{
-		ArrayList<Column> columns = mTree.getColumns();
+		ArrayList<PropertyGridColumn> columns = mTree.getColumns();
 		int y = 0;
 		int w = getWidth();
 		int h = getHeight();
@@ -40,7 +40,7 @@ public class TreeColumnHeader extends JPanel
 
 		for (int columnIndex = 0, x = 0; columnIndex < columns.size(); columnIndex++)
 		{
-			Column column = columns.get(columnIndex);
+			PropertyGridColumn column = columns.get(columnIndex);
 			int cw = columnWidths[columnIndex];
 
 			aGraphics.setColor(new Color(0xE8F1FB));
@@ -67,7 +67,7 @@ public class TreeColumnHeader extends JPanel
 	}
 
 
-	static int[] computeColumnWidths(ArrayList<Column> aColumns, int aWidth)
+	static int[] computeColumnWidths(ArrayList<PropertyGridColumn> aColumns, int aWidth)
 	{
 		int[] widths = new int[aColumns.size()];
 
@@ -75,7 +75,7 @@ public class TreeColumnHeader extends JPanel
 		int remainingWidth = aWidth;
 		for (int i = 0; i < aColumns.size(); i++)
 		{
-			Column column = aColumns.get(i);
+			PropertyGridColumn column = aColumns.get(i);
 			int cw = column.getWidth();
 			if (cw < 0)
 			{
@@ -89,7 +89,7 @@ public class TreeColumnHeader extends JPanel
 
 		for (int i = 0; i < aColumns.size(); i++)
 		{
-			Column column = aColumns.get(i);
+			PropertyGridColumn column = aColumns.get(i);
 			int cw = column.getWidth();
 
 			if (cw < 0)

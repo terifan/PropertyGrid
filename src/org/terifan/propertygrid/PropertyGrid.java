@@ -26,16 +26,16 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 
-public class Tree<T> extends JPanel implements Scrollable
+public class PropertyGrid<T> extends JPanel implements Scrollable
 {
 	protected BufferedImage mExpandIcon;
 	protected BufferedImage mCollapseIcon;
 	protected HashMap<Integer, Color> mIndentBackgroundColor;
 	protected HashMap<Integer, Color> mIndentLineColor;
-	protected ArrayList<Column> mColumns;
-	protected TreeNode mTreeRoot;
-	protected TreeNode mRolloverNode;
-	protected TreeNode mSelectedNode;
+	protected ArrayList<PropertyGridColumn> mColumns;
+	protected PropertyNode mTreeRoot;
+	protected PropertyNode mRolloverNode;
+	protected PropertyNode mSelectedNode;
 	protected int mIndentWidth;
 	protected int mRowHeight;
 	protected int mColumnHeaderHeight;
@@ -57,7 +57,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	protected Color mHorizontalLineColor;
 
 
-	public Tree()
+	public PropertyGrid()
 	{
 		mRowHeight = 24;
 		mIndentWidth = 19;
@@ -96,31 +96,31 @@ public class Tree<T> extends JPanel implements Scrollable
 		super.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_HOME, InputEvent.CTRL_MASK), JComponent.WHEN_FOCUSED);
 		super.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_END, InputEvent.CTRL_MASK), JComponent.WHEN_FOCUSED);
 
-		MouseAdapter mouseAdapter = new TreeMouseListener(this);
+		MouseAdapter mouseAdapter = new PropertyGridMouseListener(this);
 		addMouseListener(mouseAdapter);
 		addMouseMotionListener(mouseAdapter);
 	}
 
 
-	public void setRoot(TreeNode aTreeNode)
+	public void setRoot(PropertyNode aTreeNode)
 	{
 		mTreeRoot = aTreeNode;
 	}
 
 
-	public TreeNode getRoot()
+	public PropertyNode getRoot()
 	{
 		return mTreeRoot;
 	}
 
 
-	public void addColumn(Column aName)
+	public void addColumn(PropertyGridColumn aName)
 	{
 		mColumns.add(aName);
 	}
 
 
-	public ArrayList<Column> getColumns()
+	public ArrayList<PropertyGridColumn> getColumns()
 	{
 		return mColumns;
 	}
@@ -156,7 +156,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setPaintHeaderRow(boolean aPaintHeaderRow)
+	public PropertyGrid<T> setPaintHeaderRow(boolean aPaintHeaderRow)
 	{
 		mPaintHeaderRow = aPaintHeaderRow;
 		configureEnclosingScrollPane();
@@ -170,7 +170,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setPaintHorizontalLines(boolean aPaintHorizontalLines)
+	public PropertyGrid<T> setPaintHorizontalLines(boolean aPaintHorizontalLines)
 	{
 		PaintHorizontalLines = aPaintHorizontalLines;
 		return this;
@@ -183,7 +183,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setPaintVerticalLines(boolean aPaintVerticalLines)
+	public PropertyGrid<T> setPaintVerticalLines(boolean aPaintVerticalLines)
 	{
 		PaintVerticalLines = aPaintVerticalLines;
 		return this;
@@ -228,7 +228,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setIconWidth(int aIconWidth)
+	public PropertyGrid<T> setIconWidth(int aIconWidth)
 	{
 		mIconWidth = aIconWidth;
 		return this;
@@ -241,7 +241,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setIconTextSpacing(int aIconTextSpacing)
+	public PropertyGrid<T> setIconTextSpacing(int aIconTextSpacing)
 	{
 		mIconTextSpacing = aIconTextSpacing;
 		return this;
@@ -254,7 +254,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setIndentWidth(int aIndentWidth)
+	public PropertyGrid<T> setIndentWidth(int aIndentWidth)
 	{
 		mIndentWidth = aIndentWidth;
 		return this;
@@ -267,7 +267,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setColumnHeaderHeight(int aColumnHeaderHeight)
+	public PropertyGrid<T> setColumnHeaderHeight(int aColumnHeaderHeight)
 	{
 		mColumnHeaderHeight = aColumnHeaderHeight;
 		return this;
@@ -280,7 +280,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setFieldValueProvider(FieldValueProvider aFieldValueProvider)
+	public PropertyGrid<T> setFieldValueProvider(FieldValueProvider aFieldValueProvider)
 	{
 		mFieldValueProvider = aFieldValueProvider;
 		return this;
@@ -293,7 +293,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setHighlightFullRow(boolean aHighlightFullRow)
+	public PropertyGrid<T> setHighlightFullRow(boolean aHighlightFullRow)
 	{
 		mHighlightFullRow = aHighlightFullRow;
 		return this;
@@ -306,7 +306,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setVerticalLineColor(Color aVerticalLineColor)
+	public PropertyGrid<T> setVerticalLineColor(Color aVerticalLineColor)
 	{
 		mVerticalLineColor = aVerticalLineColor;
 		return this;
@@ -346,7 +346,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	protected void setRollover(TreeNode aNode)
+	protected void setRollover(PropertyNode aNode)
 	{
 		if (mRolloverNode != null)
 		{
@@ -433,7 +433,7 @@ public class Tree<T> extends JPanel implements Scrollable
 			if (mPaintHeaderRow)
 			{
 				JPanel columnHeaderView = new JPanel(new BorderLayout());
-				columnHeaderView.add(new TreeColumnHeader(this), BorderLayout.NORTH);
+				columnHeaderView.add(new PropertyGridColumnHeader(this), BorderLayout.NORTH);
 
 				scrollPane.setColumnHeaderView(columnHeaderView);
 				scrollPane.setBorder(null);
@@ -450,7 +450,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	protected void setSelectedNode(TreeNode aNode)
+	protected void setSelectedNode(PropertyNode aNode)
 	{
 		if (mSelectedNode != null)
 		{
@@ -469,7 +469,7 @@ public class Tree<T> extends JPanel implements Scrollable
 	}
 
 
-	public Tree<T> setIconStyle(int aIconStyle)
+	public PropertyGrid<T> setIconStyle(int aIconStyle)
 	{
 		mIconStyle = aIconStyle;
 		mExpandIcon = null;
@@ -483,7 +483,7 @@ public class Tree<T> extends JPanel implements Scrollable
 		{
 			try
 			{
-				BufferedImage icons = ImageIO.read(TreeNode.class.getResource("icons.png"));
+				BufferedImage icons = ImageIO.read(PropertyNode.class.getResource("icons.png"));
 				if (mIconStyle == 0)
 				{
 					mExpandIcon = icons.getSubimage(11 * 16, 0, 16, 16);

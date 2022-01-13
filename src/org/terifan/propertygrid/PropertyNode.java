@@ -13,10 +13,10 @@ import org.terifan.ui.Anchor;
 import org.terifan.ui.TextBox;
 
 
-public class TreeNode<T>
+public class PropertyNode<T>
 {
 	protected T mValue;
-	protected ArrayList<TreeNode> mChildren;
+	protected ArrayList<PropertyNode> mChildren;
 	protected boolean mExpanded;
 	protected boolean mRollover;
 	protected boolean mSelected;
@@ -29,7 +29,7 @@ public class TreeNode<T>
 	protected Icon mIcon;
 
 
-	public TreeNode(T aValue)
+	public PropertyNode(T aValue)
 	{
 		mChildren = new ArrayList<>();
 		mExpanded = true;
@@ -48,7 +48,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setSelectable(boolean aSelectable)
+	public PropertyNode setSelectable(boolean aSelectable)
 	{
 		mSelectable = aSelectable;
 		return this;
@@ -61,7 +61,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setForeground(Color aColor)
+	public PropertyNode setForeground(Color aColor)
 	{
 		mForeground = aColor;
 		return this;
@@ -74,7 +74,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setBackground(Color aColor)
+	public PropertyNode setBackground(Color aColor)
 	{
 		mBackground = aColor;
 		return this;
@@ -87,7 +87,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setRowBackground(Color aColor)
+	public PropertyNode setRowBackground(Color aColor)
 	{
 		mRowBackground = aColor;
 		return this;
@@ -100,7 +100,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setRowHeight(Integer aRowHeight)
+	public PropertyNode setRowHeight(Integer aRowHeight)
 	{
 		mRowHeight = aRowHeight;
 		return this;
@@ -113,27 +113,27 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode setFont(Font aFont)
+	public PropertyNode setFont(Font aFont)
 	{
 		mFont = aFont;
 		return this;
 	}
 
 
-	public TreeNode add(TreeNode aNode)
+	public PropertyNode add(PropertyNode aNode)
 	{
 		mChildren.add(aNode);
 		return this;
 	}
 
 
-	public ArrayList<TreeNode> getChildren()
+	public ArrayList<PropertyNode> getChildren()
 	{
 		return mChildren;
 	}
 
 
-	protected int paintComponent(Tree<T> aTree, Graphics aGraphics, int aWidth, int aY, int aLevel)
+	protected int paintComponent(PropertyGrid<T> aTree, Graphics aGraphics, int aWidth, int aY, int aLevel)
 	{
 		if (aLevel > 0 || aTree.isPaintRootNode())
 		{
@@ -194,7 +194,7 @@ public class TreeNode<T>
 				}
 			}
 
-			int[] columnWidths = TreeColumnHeader.computeColumnWidths(aTree.getColumns(), aWidth);
+			int[] columnWidths = PropertyGridColumnHeader.computeColumnWidths(aTree.getColumns(), aWidth);
 
 			for (int columnIndex = 0, x0 = 0; columnIndex < aTree.getColumns().size(); columnIndex++)
 			{
@@ -254,7 +254,7 @@ public class TreeNode<T>
 
 		if (mExpanded)
 		{
-			for (TreeNode node : mChildren)
+			for (PropertyNode node : mChildren)
 			{
 				aY = node.paintComponent(aTree, aGraphics, aWidth, aY, aLevel + 1);
 			}
@@ -264,13 +264,13 @@ public class TreeNode<T>
 	}
 
 
-	protected int getRowHeight(Tree aTree)
+	protected int getRowHeight(PropertyGrid aTree)
 	{
 		return mRowHeight == null ? aTree.mRowHeight : mRowHeight;
 	}
 
 
-	protected Dimension getPreferredSize(Tree<T> aTree, int aLevel)
+	protected Dimension getPreferredSize(PropertyGrid<T> aTree, int aLevel)
 	{
 		Dimension result = new Dimension(0, 0);
 
@@ -281,7 +281,7 @@ public class TreeNode<T>
 
 		for (int columnIndex = 0, x = 0; columnIndex < aTree.getColumns().size(); columnIndex++)
 		{
-			Column column = aTree.getColumns().get(columnIndex);
+			PropertyGridColumn column = aTree.getColumns().get(columnIndex);
 			int w = Math.max(column.getWidth(), column.getMinimumWidth());
 
 			result.width += w;
@@ -289,7 +289,7 @@ public class TreeNode<T>
 
 		if (mExpanded)
 		{
-			for (TreeNode node : mChildren)
+			for (PropertyNode node : mChildren)
 			{
 				Dimension d = node.getPreferredSize(aTree, aLevel + 1);
 				result.width = Math.max(result.width, d.width);
@@ -301,7 +301,7 @@ public class TreeNode<T>
 	}
 
 
-	public TreeNode intersect(Tree aTree, MouseEvent aEvent, AtomicInteger aOffsetY, AtomicInteger aLevel)
+	public PropertyNode intersect(PropertyGrid aTree, MouseEvent aEvent, AtomicInteger aOffsetY, AtomicInteger aLevel)
 	{
 		if (aTree.isPaintRootNode() || aTree.getRoot() != this)
 		{
@@ -317,9 +317,9 @@ public class TreeNode<T>
 		{
 			aLevel.incrementAndGet();
 
-			for (TreeNode node : mChildren)
+			for (PropertyNode node : mChildren)
 			{
-				TreeNode tmp = node.intersect(aTree, aEvent, aOffsetY, aLevel);
+				PropertyNode tmp = node.intersect(aTree, aEvent, aOffsetY, aLevel);
 
 				if (tmp != null)
 				{

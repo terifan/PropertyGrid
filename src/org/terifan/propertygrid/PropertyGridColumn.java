@@ -1,7 +1,7 @@
 package org.terifan.propertygrid;
 
 
-public class Column
+public class PropertyGridColumn
 {
 	protected String mName;
 	protected String mFieldName;
@@ -9,7 +9,7 @@ public class Column
 	protected int mMinimumWidth;
 
 
-	public Column(String aName)
+	public PropertyGridColumn(String aName)
 	{
 		mName = aName;
 		mWidth = 100;
@@ -22,7 +22,7 @@ public class Column
 	}
 
 
-	public Column setName(String aName)
+	public PropertyGridColumn setName(String aName)
 	{
 		mName = aName;
 		return this;
@@ -35,7 +35,7 @@ public class Column
 	}
 
 
-	public Column setFieldName(String aFieldName)
+	public PropertyGridColumn setFieldName(String aFieldName)
 	{
 		mFieldName = aFieldName;
 		return this;
@@ -48,7 +48,7 @@ public class Column
 	}
 
 
-	public Column setWidth(int aWidth)
+	public PropertyGridColumn setWidth(int aWidth)
 	{
 		mWidth = aWidth;
 		return this;
@@ -61,7 +61,7 @@ public class Column
 	}
 
 
-	public Column setMinimumWidth(int aMinimumWidth)
+	public PropertyGridColumn setMinimumWidth(int aMinimumWidth)
 	{
 		mMinimumWidth = aMinimumWidth;
 		return this;

@@ -5,12 +5,12 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class TreeMouseListener extends MouseAdapter
+public class PropertyGridMouseListener extends MouseAdapter
 {
-	protected Tree mTree;
+	protected PropertyGrid mTree;
 
 
-	public TreeMouseListener(Tree aTree)
+	public PropertyGridMouseListener(PropertyGrid aTree)
 	{
 		mTree = aTree;
 	}
@@ -23,7 +23,7 @@ public class TreeMouseListener extends MouseAdapter
 		{
 			AtomicInteger level = new AtomicInteger();
 
-			TreeNode node = mTree.getRoot().intersect(mTree, aEvent, new AtomicInteger(), level);
+			PropertyNode node = mTree.getRoot().intersect(mTree, aEvent, new AtomicInteger(), level);
 
 			if (node != null)
 			{
@@ -64,7 +64,7 @@ public class TreeMouseListener extends MouseAdapter
 	{
 		if (mTree.getRoot() != null)
 		{
-			TreeNode node = mTree.getRoot().intersect(mTree, aEvent, new AtomicInteger(), new AtomicInteger());
+			PropertyNode node = mTree.getRoot().intersect(mTree, aEvent, new AtomicInteger(), new AtomicInteger());
 
 			if (mTree.mRolloverNode != node)
 			{

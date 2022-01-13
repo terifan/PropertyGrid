@@ -25,10 +25,10 @@ public class Test extends JPanel
 	{
 		try
 		{
-			Tree test1 = test1();
-			Tree test2 = test2();
-			Tree test3 = test3();
-			Tree test4 = test4();
+			PropertyGrid test1 = test1();
+			PropertyGrid test2 = test2();
+			PropertyGrid test3 = test3();
+			PropertyGrid test4 = test4();
 
 			JPanel panel = new JPanel(new GridLayout(2, 3, 20, 20));
 			panel.add(new JScrollPane(test1));
@@ -75,30 +75,30 @@ public class Test extends JPanel
 	}
 
 
-	public static Tree test1() throws IOException
+	public static PropertyGrid test1() throws IOException
 	{
 		BufferedImage icons = ImageIO.read(Test.class.getResource("icons.png"));
 
-		TreeNode n0 = new TreeNode(new Entity("Aaaaaa", icons));
-		TreeNode n1 = new TreeNode(new Entity("Bbbbbbbb", icons));
-		TreeNode n2 = new TreeNode(new Entity("Cccc", icons));
-		TreeNode n3 = new TreeNode(new Entity("Ddddd", icons));
-		TreeNode n4 = new TreeNode(new Entity("Eeee", icons));
-		TreeNode n5 = new TreeNode(new Entity("Fffffff", icons));
-		TreeNode n6 = new TreeNode(new Entity("Ggggggg", icons));
-		TreeNode n7 = new TreeNode(new Entity("Hhhhhhh", icons));
-		TreeNode n8 = new TreeNode(new Entity("Iiiiiii", icons));
-		TreeNode n9 = new TreeNode(new Entity("Jjjjj", icons));
-		TreeNode n10 = new TreeNode(new Entity("Kkkkkkkk", icons));
-		TreeNode n11 = new TreeNode(new Entity("Llllllll", icons));
-		TreeNode n12 = new TreeNode(new Entity("Mmmmmmm", icons));
-		TreeNode n13 = new TreeNode(new Entity("Nnnnnnnn", icons));
-		TreeNode n14 = new TreeNode(new Entity("Ooooooo", icons));
-		TreeNode n15 = new TreeNode(new Entity("Ppppppp", icons));
-		TreeNode n16 = new TreeNode(new Entity("Qqqqqqq", icons));
-		TreeNode n17 = new TreeNode(new Entity("Rrrrrrr", icons));
-		TreeNode n18 = new TreeNode(new Entity("Sss", icons));
-		TreeNode n19 = new TreeNode(new Entity("Tttttttttt", icons));
+		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons));
+		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons));
+		PropertyNode n2 = new PropertyNode(new Entity("Cccc", icons));
+		PropertyNode n3 = new PropertyNode(new Entity("Ddddd", icons));
+		PropertyNode n4 = new PropertyNode(new Entity("Eeee", icons));
+		PropertyNode n5 = new PropertyNode(new Entity("Fffffff", icons));
+		PropertyNode n6 = new PropertyNode(new Entity("Ggggggg", icons));
+		PropertyNode n7 = new PropertyNode(new Entity("Hhhhhhh", icons));
+		PropertyNode n8 = new PropertyNode(new Entity("Iiiiiii", icons));
+		PropertyNode n9 = new PropertyNode(new Entity("Jjjjj", icons));
+		PropertyNode n10 = new PropertyNode(new Entity("Kkkkkkkk", icons));
+		PropertyNode n11 = new PropertyNode(new Entity("Llllllll", icons));
+		PropertyNode n12 = new PropertyNode(new Entity("Mmmmmmm", icons));
+		PropertyNode n13 = new PropertyNode(new Entity("Nnnnnnnn", icons));
+		PropertyNode n14 = new PropertyNode(new Entity("Ooooooo", icons));
+		PropertyNode n15 = new PropertyNode(new Entity("Ppppppp", icons));
+		PropertyNode n16 = new PropertyNode(new Entity("Qqqqqqq", icons));
+		PropertyNode n17 = new PropertyNode(new Entity("Rrrrrrr", icons));
+		PropertyNode n18 = new PropertyNode(new Entity("Sss", icons));
+		PropertyNode n19 = new PropertyNode(new Entity("Tttttttttt", icons));
 		n0.add(n1);
 		n0.add(n2);
 		n0.add(n15);
@@ -119,11 +119,11 @@ public class Test extends JPanel
 		n0.add(n9);
 		n0.add(n14);
 
-		Tree tree = new Tree();
+		PropertyGrid tree = new PropertyGrid();
 		tree.setIconStyle(1);
-		tree.addColumn(new Column("Key").setFieldName("key").setWidth(-200));
-		tree.addColumn(new Column("Value").setFieldName("value").setWidth(-150));
-		tree.addColumn(new Column("Type").setFieldName("type").setWidth(-100));
+		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-200));
+		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-150));
+		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(-100));
 		tree.setRoot(n0);
 //		tree.setPaintHorizontalLines(true);
 //		tree.setPaintVerticalLines(true);
@@ -139,30 +139,30 @@ public class Test extends JPanel
 	}
 
 
-	public static Tree test2() throws IOException
+	public static PropertyGrid test2() throws IOException
 	{
 		BufferedImage icons = ImageIO.read(Test.class.getResource("icons.png"));
 
-		TreeNode n0 = new TreeNode(new Entity("Aaaaaa", icons));
-		TreeNode n1 = new TreeNode(new Entity("Bbbbbbbb", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n2 = new TreeNode(new Entity("Cccc", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n3 = new TreeNode(new Entity("Ddddd", icons));
-		TreeNode n4 = new TreeNode(new Entity("Eeee", icons));
-		TreeNode n5 = new TreeNode(new Entity("Fffffff", icons));
-		TreeNode n6 = new TreeNode(new Entity("Ggggggg", icons));
-		TreeNode n7 = new TreeNode(new Entity("Hhhhhhh", icons));
-		TreeNode n8 = new TreeNode(new Entity("Iiiiiii", icons));
-		TreeNode n9 = new TreeNode(new Entity("Jjjjj", icons));
-		TreeNode n10 = new TreeNode(new Entity("Kkkkkkkk", icons));
-		TreeNode n11 = new TreeNode(new Entity("Llllllll", icons));
-		TreeNode n12 = new TreeNode(new Entity("Mmmmmmm", icons));
-		TreeNode n13 = new TreeNode(new Entity("Nnnnnnnn", icons));
-		TreeNode n14 = new TreeNode(new Entity("Ooooooo", icons));
-		TreeNode n15 = new TreeNode(new Entity("Ppppppp", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n16 = new TreeNode(new Entity("Qqqqqqq", icons));
-		TreeNode n17 = new TreeNode(new Entity("Rrrrrrr", icons));
-		TreeNode n18 = new TreeNode(new Entity("Sss", icons));
-		TreeNode n19 = new TreeNode(new Entity("Tttttttttt", icons));
+		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons));
+		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n2 = new PropertyNode(new Entity("Cccc", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n3 = new PropertyNode(new Entity("Ddddd", icons));
+		PropertyNode n4 = new PropertyNode(new Entity("Eeee", icons));
+		PropertyNode n5 = new PropertyNode(new Entity("Fffffff", icons));
+		PropertyNode n6 = new PropertyNode(new Entity("Ggggggg", icons));
+		PropertyNode n7 = new PropertyNode(new Entity("Hhhhhhh", icons));
+		PropertyNode n8 = new PropertyNode(new Entity("Iiiiiii", icons));
+		PropertyNode n9 = new PropertyNode(new Entity("Jjjjj", icons));
+		PropertyNode n10 = new PropertyNode(new Entity("Kkkkkkkk", icons));
+		PropertyNode n11 = new PropertyNode(new Entity("Llllllll", icons));
+		PropertyNode n12 = new PropertyNode(new Entity("Mmmmmmm", icons));
+		PropertyNode n13 = new PropertyNode(new Entity("Nnnnnnnn", icons));
+		PropertyNode n14 = new PropertyNode(new Entity("Ooooooo", icons));
+		PropertyNode n15 = new PropertyNode(new Entity("Ppppppp", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n16 = new PropertyNode(new Entity("Qqqqqqq", icons));
+		PropertyNode n17 = new PropertyNode(new Entity("Rrrrrrr", icons));
+		PropertyNode n18 = new PropertyNode(new Entity("Sss", icons));
+		PropertyNode n19 = new PropertyNode(new Entity("Tttttttttt", icons));
 		n0.add(n1);
 		n0.add(n2);
 		n0.add(n15);
@@ -183,10 +183,10 @@ public class Test extends JPanel
 		n0.add(n9);
 		n0.add(n14);
 
-		Tree tree = new Tree();
-		tree.addColumn(new Column("Key").setFieldName("key").setWidth(200));
-		tree.addColumn(new Column("Value").setFieldName("value").setWidth(-1).setMinimumWidth(50));
-		tree.addColumn(new Column("Type").setFieldName("type").setWidth(50).setMinimumWidth(50));
+		PropertyGrid tree = new PropertyGrid();
+		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(200));
+		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-1).setMinimumWidth(50));
+		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(50).setMinimumWidth(50));
 		tree.setRoot(n0);
 		tree.setPaintIndentLines(true);
 		tree.setHighlightFullRow(true);
@@ -204,28 +204,28 @@ public class Test extends JPanel
 	}
 
 
-	public static Tree test3() throws IOException
+	public static PropertyGrid test3() throws IOException
 	{
-		TreeNode n0 = new TreeNode(new Entity("Aaaaaa"));
-		TreeNode n1 = new TreeNode(new Entity("Bbbbbbbb")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n2 = new TreeNode(new Entity("Cccc")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n3 = new TreeNode(new Entity("Ddddd"));
-		TreeNode n4 = new TreeNode(new Entity("Eeee"));
-		TreeNode n5 = new TreeNode(new Entity("Fffffff"));
-		TreeNode n6 = new TreeNode(new Entity("Ggggggg"));
-		TreeNode n7 = new TreeNode(new Entity("Hhhhhhh"));
-		TreeNode n8 = new TreeNode(new Entity("Iiiiiii"));
-		TreeNode n9 = new TreeNode(new Entity("Jjjjj"));
-		TreeNode n10 = new TreeNode(new Entity("Kkkkkkkk"));
-		TreeNode n11 = new TreeNode(new Entity("Llllllll"));
-		TreeNode n12 = new TreeNode(new Entity("Mmmmmmm"));
-		TreeNode n13 = new TreeNode(new Entity("Nnnnnnnn"));
-		TreeNode n14 = new TreeNode(new Entity("Ooooooo"));
-		TreeNode n15 = new TreeNode(new Entity("Ppppppp")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		TreeNode n16 = new TreeNode(new Entity("Qqqqqqq"));
-		TreeNode n17 = new TreeNode(new Entity("Rrrrrrr"));
-		TreeNode n18 = new TreeNode(new Entity("Sss"));
-		TreeNode n19 = new TreeNode(new Entity("Tttttttttt"));
+		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa"));
+		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n2 = new PropertyNode(new Entity("Cccc")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n3 = new PropertyNode(new Entity("Ddddd"));
+		PropertyNode n4 = new PropertyNode(new Entity("Eeee"));
+		PropertyNode n5 = new PropertyNode(new Entity("Fffffff"));
+		PropertyNode n6 = new PropertyNode(new Entity("Ggggggg"));
+		PropertyNode n7 = new PropertyNode(new Entity("Hhhhhhh"));
+		PropertyNode n8 = new PropertyNode(new Entity("Iiiiiii"));
+		PropertyNode n9 = new PropertyNode(new Entity("Jjjjj"));
+		PropertyNode n10 = new PropertyNode(new Entity("Kkkkkkkk"));
+		PropertyNode n11 = new PropertyNode(new Entity("Llllllll"));
+		PropertyNode n12 = new PropertyNode(new Entity("Mmmmmmm"));
+		PropertyNode n13 = new PropertyNode(new Entity("Nnnnnnnn"));
+		PropertyNode n14 = new PropertyNode(new Entity("Ooooooo"));
+		PropertyNode n15 = new PropertyNode(new Entity("Ppppppp")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n16 = new PropertyNode(new Entity("Qqqqqqq"));
+		PropertyNode n17 = new PropertyNode(new Entity("Rrrrrrr"));
+		PropertyNode n18 = new PropertyNode(new Entity("Sss"));
+		PropertyNode n19 = new PropertyNode(new Entity("Tttttttttt"));
 		n0.add(n1);
 		n0.add(n2);
 		n0.add(n15);
@@ -246,9 +246,9 @@ public class Test extends JPanel
 		n0.add(n9);
 		n0.add(n14);
 
-		Tree tree = new Tree();
-		tree.addColumn(new Column("Key").setFieldName("key").setWidth(200));
-		tree.addColumn(new Column("Value").setFieldName("value").setWidth(150));
+		PropertyGrid tree = new PropertyGrid();
+		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(200));
+		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(150));
 		tree.setRoot(n0);
 		tree.setPaintHorizontalLines(true);
 		tree.setPaintVerticalLines(true);
@@ -264,30 +264,30 @@ public class Test extends JPanel
 	}
 
 
-	public static Tree test4() throws IOException
+	public static PropertyGrid test4() throws IOException
 	{
-		BufferedImage icons = ImageIO.read(TreeNode.class.getResource("icons.png"));
+		BufferedImage icons = ImageIO.read(PropertyNode.class.getResource("icons.png"));
 
-		TreeNode n0 = new TreeNode(new Entity("Aaaaaa", icons, 5,6,9));
-		TreeNode n1 = new TreeNode(new Entity("Bbbbbbbb", icons, 5,6,9));
-		TreeNode n2 = new TreeNode(new Entity("Cccc", icons, 5,6,9));
-		TreeNode n3 = new TreeNode(new Entity("Ddddd", icons));
-		TreeNode n4 = new TreeNode(new Entity("Eeee", icons));
-		TreeNode n5 = new TreeNode(new Entity("Fffffff", icons));
-		TreeNode n6 = new TreeNode(new Entity("Ggggggg", icons));
-		TreeNode n7 = new TreeNode(new Entity("Hhhhhhh", icons));
-		TreeNode n8 = new TreeNode(new Entity("Iiiiiii", icons));
-		TreeNode n9 = new TreeNode(new Entity("Jjjjj", icons));
-		TreeNode n10 = new TreeNode(new Entity("Kkkkkkkk", icons));
-		TreeNode n11 = new TreeNode(new Entity("Llllllll", icons));
-		TreeNode n12 = new TreeNode(new Entity("Mmmmmmm", icons));
-		TreeNode n13 = new TreeNode(new Entity("Nnnnnnnn", icons));
-		TreeNode n14 = new TreeNode(new Entity("Ooooooo", icons));
-		TreeNode n15 = new TreeNode(new Entity("Ppppppp", icons));
-		TreeNode n16 = new TreeNode(new Entity("Qqqqqqq", icons));
-		TreeNode n17 = new TreeNode(new Entity("Rrrrrrr", icons));
-		TreeNode n18 = new TreeNode(new Entity("Sss", icons));
-		TreeNode n19 = new TreeNode(new Entity("Tttttttttt", icons));
+		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons, 5,6,9));
+		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons, 5,6,9));
+		PropertyNode n2 = new PropertyNode(new Entity("Cccc", icons, 5,6,9));
+		PropertyNode n3 = new PropertyNode(new Entity("Ddddd", icons));
+		PropertyNode n4 = new PropertyNode(new Entity("Eeee", icons));
+		PropertyNode n5 = new PropertyNode(new Entity("Fffffff", icons));
+		PropertyNode n6 = new PropertyNode(new Entity("Ggggggg", icons));
+		PropertyNode n7 = new PropertyNode(new Entity("Hhhhhhh", icons));
+		PropertyNode n8 = new PropertyNode(new Entity("Iiiiiii", icons));
+		PropertyNode n9 = new PropertyNode(new Entity("Jjjjj", icons));
+		PropertyNode n10 = new PropertyNode(new Entity("Kkkkkkkk", icons));
+		PropertyNode n11 = new PropertyNode(new Entity("Llllllll", icons));
+		PropertyNode n12 = new PropertyNode(new Entity("Mmmmmmm", icons));
+		PropertyNode n13 = new PropertyNode(new Entity("Nnnnnnnn", icons));
+		PropertyNode n14 = new PropertyNode(new Entity("Ooooooo", icons));
+		PropertyNode n15 = new PropertyNode(new Entity("Ppppppp", icons));
+		PropertyNode n16 = new PropertyNode(new Entity("Qqqqqqq", icons));
+		PropertyNode n17 = new PropertyNode(new Entity("Rrrrrrr", icons));
+		PropertyNode n18 = new PropertyNode(new Entity("Sss", icons));
+		PropertyNode n19 = new PropertyNode(new Entity("Tttttttttt", icons));
 		n0.add(n1);
 		n0.add(n2);
 		n0.add(n15);
@@ -308,11 +308,11 @@ public class Test extends JPanel
 		n0.add(n9);
 		n0.add(n14);
 
-		Tree tree = new Tree();
-		tree.addColumn(new Column("Key").setFieldName("key").setWidth(-100));
-		tree.addColumn(new Column("A").setFieldName("a").setWidth(20));
-		tree.addColumn(new Column("B").setFieldName("b").setWidth(20));
-		tree.addColumn(new Column("C").setFieldName("c").setWidth(20));
+		PropertyGrid tree = new PropertyGrid();
+		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-100));
+		tree.addColumn(new PropertyGridColumn("A").setFieldName("a").setWidth(20));
+		tree.addColumn(new PropertyGridColumn("B").setFieldName("b").setWidth(20));
+		tree.addColumn(new PropertyGridColumn("C").setFieldName("c").setWidth(20));
 		tree.setRoot(n0);
 //		tree.setPaintHorizontalLines(true);
 //		tree.setPaintVerticalLines(true);
