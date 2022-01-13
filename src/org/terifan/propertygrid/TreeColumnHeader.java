@@ -1,4 +1,4 @@
-package org.terifan.ui.propertygrid;
+package org.terifan.propertygrid;
 
 import java.awt.Color;
 import java.awt.Dimension;
