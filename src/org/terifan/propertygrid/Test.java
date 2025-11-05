@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 
 public class Test extends JPanel
 {
-	public static void main(String ... args)
+	public static void main(String... args)
 	{
 		try
 		{
@@ -29,13 +29,15 @@ public class Test extends JPanel
 			PropertyGrid test2 = test2();
 			PropertyGrid test3 = test3();
 			PropertyGrid test4 = test4();
+			PropertyGrid test5 = test3();
+			test5.setStyles(new StylesDark());
 
 			JPanel panel = new JPanel(new GridLayout(2, 3, 20, 20));
 			panel.add(new JScrollPane(test1));
 			panel.add(new JScrollPane(test2));
 			panel.add(new JScrollPane(test3));
 			panel.add(new JScrollPane(test4));
-			panel.add(new JLabel(""));
+			panel.add(new JScrollPane(test5));
 			panel.add(new JLabel(""));
 
 			JFrame frame = new JFrame();
@@ -120,20 +122,17 @@ public class Test extends JPanel
 		n0.add(n14);
 
 		PropertyGrid tree = new PropertyGrid();
-		tree.setIconStyle(1);
+		tree.setStyles(new Styles().setIconStyle(1));
 		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-200));
 		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-150));
 		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(-100));
 		tree.setRoot(n0);
-//		tree.setPaintHorizontalLines(true);
-//		tree.setPaintVerticalLines(true);
-//		tree.setPaintIndentLines(true);
-//		tree.setPaintRootNode(false);
-//		tree.setPaintHeaderRow(false);
-		tree.setIndentWidth(20);
-		tree.setIconWidth(20);
-		tree.setIconTextSpacing(4);
-		tree.setColumnHeaderHeight(28);
+		tree.setStyles(new Styles()
+			.setIndentWidth(20)
+			.setIconWidth(20)
+			.setIconTextSpacing(4)
+			.setColumnHeaderHeight(28)
+		);
 
 		return tree;
 	}
@@ -186,19 +185,21 @@ public class Test extends JPanel
 		PropertyGrid tree = new PropertyGrid();
 		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(200));
 		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-1).setMinimumWidth(50));
-		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(50).setMinimumWidth(50));
+		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(75).setMinimumWidth(75));
 		tree.setRoot(n0);
 		tree.setPaintIndentLines(true);
 		tree.setHighlightFullRow(true);
-		tree.setIndentWidth(19);
-		tree.setIconWidth(20);
-		tree.setIconTextSpacing(4);
-		tree.setIndentBackgroundColor(0, new Color(0xFFAA44));
-		tree.setIndentBackgroundColor(1, new Color(0xFF9933));
-		tree.setIndentBackgroundColor(2, new Color(0xFF8822));
-		tree.setIndentLineColor(0, new Color(0xFF7722));
-		tree.setIndentLineColor(1, new Color(0xFF6611));
-		tree.setIndentLineColor(2, new Color(0xFF5500));
+		tree.setStyles(new Styles()
+			.setIndentWidth(19)
+			.setIconWidth(20)
+			.setIconTextSpacing(4)
+			.setIndentBackgroundColor(0, new Color(0xFFAA44))
+			.setIndentBackgroundColor(1, new Color(0xFF9933))
+			.setIndentBackgroundColor(2, new Color(0xFF8822))
+			.setIndentLineColor(0, new Color(0xFF7722))
+			.setIndentLineColor(1, new Color(0xFF6611))
+			.setIndentLineColor(2, new Color(0xFF5500))
+		);
 
 		return tree;
 	}
@@ -206,9 +207,11 @@ public class Test extends JPanel
 
 	public static PropertyGrid test3() throws IOException
 	{
+		Font bold = new Font("arial", Font.BOLD, 12);
+		Color highlight = new Color(0xF4F7FC);
 		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa"));
-		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
-		PropertyNode n2 = new PropertyNode(new Entity("Cccc")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n1 = new PropertyTitleNode(new Entity("Bbbbbbbb")).setSelectable(false);
+		PropertyNode n2 = new PropertyTitleNode(new Entity("Cccc")).setSelectable(false);
 		PropertyNode n3 = new PropertyNode(new Entity("Ddddd"));
 		PropertyNode n4 = new PropertyNode(new Entity("Eeee"));
 		PropertyNode n5 = new PropertyNode(new Entity("Fffffff"));
@@ -221,7 +224,7 @@ public class Test extends JPanel
 		PropertyNode n12 = new PropertyNode(new Entity("Mmmmmmm"));
 		PropertyNode n13 = new PropertyNode(new Entity("Nnnnnnnn"));
 		PropertyNode n14 = new PropertyNode(new Entity("Ooooooo"));
-		PropertyNode n15 = new PropertyNode(new Entity("Ppppppp")).setRowBackground(new Color(0xF4F7FC)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
+		PropertyNode n15 = new PropertyTitleNode(new Entity("Ppppppp")).setSelectable(false);
 		PropertyNode n16 = new PropertyNode(new Entity("Qqqqqqq"));
 		PropertyNode n17 = new PropertyNode(new Entity("Rrrrrrr"));
 		PropertyNode n18 = new PropertyNode(new Entity("Sss"));
@@ -247,18 +250,20 @@ public class Test extends JPanel
 		n0.add(n14);
 
 		PropertyGrid tree = new PropertyGrid();
-		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(200));
-		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(150));
+		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-200));
+		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-150));
 		tree.setRoot(n0);
 		tree.setPaintHorizontalLines(true);
 		tree.setPaintVerticalLines(true);
 //		tree.setPaintIndentLines(true);
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
-		tree.setIndentWidth(20);
-		tree.setIndentBackgroundColor(0, new Color(0xF4F7FC));
-		tree.setIconWidth(20);
-		tree.setIconTextSpacing(4);
+		tree.setCompactFirstLevel(true);
+		tree.setStyles(new Styles()
+			.setIndentWidth(20)
+			.setIconWidth(20)
+			.setIconTextSpacing(4)
+		);
 
 		return tree;
 	}
@@ -268,9 +273,9 @@ public class Test extends JPanel
 	{
 		BufferedImage icons = ImageIO.read(PropertyNode.class.getResource("icons.png"));
 
-		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons, 5,6,9));
-		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons, 5,6,9));
-		PropertyNode n2 = new PropertyNode(new Entity("Cccc", icons, 5,6,9));
+		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons, 5, 6, 9));
+		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons, 5, 6, 9));
+		PropertyNode n2 = new PropertyNode(new Entity("Cccc", icons, 5, 6, 9));
 		PropertyNode n3 = new PropertyNode(new Entity("Ddddd", icons));
 		PropertyNode n4 = new PropertyNode(new Entity("Eeee", icons));
 		PropertyNode n5 = new PropertyNode(new Entity("Fffffff", icons));
@@ -319,11 +324,12 @@ public class Test extends JPanel
 //		tree.setPaintIndentLines(true);
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
-		tree.setIndentWidth(20);
 		tree.setHighlightFullRow(true);
-//		tree.setIndentBackgroundColor(0, new Color(0xF4F7FC));
-		tree.setIconWidth(20);
-		tree.setIconTextSpacing(4);
+		tree.setStyles(new Styles()
+			.setIndentWidth(20)
+			.setIconWidth(20)
+			.setIconTextSpacing(4)
+		);
 
 		return tree;
 	}
@@ -331,14 +337,17 @@ public class Test extends JPanel
 
 	private static class Entity
 	{
-		private static String[] TYPES = new String[]{"Unknown","Int32","String","Double","Binary","Boolean","ID","null","DateTime","Array","Object"};
+		private static String[] TYPES = new String[]
+		{
+			"Unknown", "Int32", "String", "Double", "Binary", "Boolean", "ID", "null", "DateTime", "Array", "Object"
+		};
 		String key;
 		String value;
 		String type;
 		Icon icon;
-		Icon a;
-		Icon b;
-		Icon c;
+//		Icon a;
+//		Icon b;
+//		Icon c;
 
 
 		public Entity(String aKey)
@@ -359,9 +368,9 @@ public class Test extends JPanel
 		public Entity(String aKey, BufferedImage aImage, int... aExtra)
 		{
 			this(aKey, aImage);
-			a = new ImageIcon(aImage.getSubimage(aExtra[0] * 16, 0, 16, 16));
-			b = new ImageIcon(aImage.getSubimage(aExtra[1] * 16, 0, 16, 16));
-			c = new ImageIcon(aImage.getSubimage(aExtra[2] * 16, 0, 16, 16));
+//			a = new ImageIcon(aImage.getSubimage(aExtra[0] * 16, 0, 16, 16));
+//			b = new ImageIcon(aImage.getSubimage(aExtra[1] * 16, 0, 16, 16));
+//			c = new ImageIcon(aImage.getSubimage(aExtra[2] * 16, 0, 16, 16));
 		}
 
 

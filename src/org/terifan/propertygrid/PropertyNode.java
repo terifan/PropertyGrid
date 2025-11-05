@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.Icon;
@@ -13,8 +14,10 @@ import org.terifan.ui.Anchor;
 import org.terifan.ui.TextBox;
 
 
-public class PropertyNode<T>
+public class PropertyNode<T> implements Serializable
 {
+	private final static long serialVersionUID = 1L;
+
 	protected T mValue;
 	protected ArrayList<PropertyNode> mChildren;
 	protected boolean mExpanded;
@@ -34,11 +37,7 @@ public class PropertyNode<T>
 		mChildren = new ArrayList<>();
 		mExpanded = true;
 		mSelectable = true;
-
 		mValue = aValue;
-
-		mForeground = Color.BLACK;
-		mFont = new Font("arial", Font.PLAIN, 12);
 	}
 
 
@@ -135,9 +134,13 @@ public class PropertyNode<T>
 
 	protected int paintComponent(PropertyGrid<T> aTree, Graphics aGraphics, int aWidth, int aY, int aLevel)
 	{
+		Styles styles = aTree.getStyles();
+
 		if (aLevel > 0 || aTree.isPaintRootNode())
 		{
-			int indent = aTree.mIndentWidth;
+			int level = aTree.isCompactFirstLevel() ? Math.max(aLevel - 1, 1) : aLevel;
+
+			int indent = styles.mIndentWidth;
 			int rowHeight = getRowHeight(aTree);
 
 			if (mRowBackground != null)
@@ -145,22 +148,22 @@ public class PropertyNode<T>
 				aGraphics.setColor(mRowBackground);
 				aGraphics.fillRect(0, aY, aWidth, rowHeight);
 			}
-			if (mBackground != null)
+			if (getActualBackground(aTree) != null)
 			{
-				int x = indent * aLevel;
-				aGraphics.setColor(mBackground);
+				int x = indent * level;
+				aGraphics.setColor(getActualBackground(aTree));
 				aGraphics.fillRect(x, aY, aWidth - x, rowHeight);
 			}
 
 			if (aTree.isPaintHorizontalLines())
 			{
-				aGraphics.setColor(aTree.getHorizontalLineColor());
+				aGraphics.setColor(styles.getHorizontalLineColor());
 				aGraphics.drawLine(0, aY + rowHeight - 1, aWidth, aY + rowHeight - 1);
 			}
 
-			for (int i = 0, j = 0; i < aLevel; i++, j++)
+			for (int i = 0, j = 0; i < level; i++, j++)
 			{
-				Color color = aTree.getIndentBackgroundColor(i);
+				Color color = styles.getIndentBackgroundColor(i);
 
 				if (color != null)
 				{
@@ -171,18 +174,18 @@ public class PropertyNode<T>
 
 			if (mSelectable && (mRollover || mSelected))
 			{
-				int x = aTree.isHighlightFullRow() ? 0 : indent * aLevel;
-				aGraphics.setColor(aTree.mWindowFocused ? mRollover ? mSelected ? new Color(0x80D1E8FF,true) : new Color(0x80E5F3FB,true) : mSelected ? new Color(0x80CBE8F6,true) : new Color(0xFFFFFF) : mRollover ? mSelected ? new Color(0x80D1E8FF,true) : new Color(0x80E5F3FB,true) : mSelected ? new Color(0x80F7F7F7,true) : new Color(0xFFFFFF));
+				int x = aTree.isHighlightFullRow() ? 0 : indent * level;
+				aGraphics.setColor(aTree.mWindowFocused ? mRollover ? mSelected ? styles.mNodeRolloverSelectedBackground : styles.mNodeRolloverBackground : mSelected ? styles.c2 : styles.c3 : mRollover ? mSelected ? styles.mNodeRolloverSelectedBackground : styles.mNodeRolloverBackground : mSelected ? styles.mNodeSelectedBackground : styles.c3);
 				aGraphics.fillRect(x, aY, aWidth - x, rowHeight);
-				aGraphics.setColor(aTree.mWindowFocused ? mRollover ? mSelected ? new Color(0x8066A7E8,true) : new Color(0x8070C0E7,true) : mSelected ? new Color(0x8026A0DA,true) : new Color(0xFFFFFF) : mRollover ? mSelected ? new Color(0x8066A7E8,true) : new Color(0x8070C0E7,true) : mSelected ? new Color(0x80DEDEDE,true) : new Color(0xFFFFFF));
+				aGraphics.setColor(aTree.mWindowFocused ? mRollover ? mSelected ? styles.mNodeRolloverSelectedBorder : styles.mNodeRolloverBorder : mSelected ? styles.t2 : styles.c3 : mRollover ? mSelected ? styles.mNodeRolloverSelectedBorder : styles.mNodeRolloverBorder : mSelected ? styles.mNodeSelectedBorder : styles.c3);
 				aGraphics.drawRect(x, aY, aWidth - x - 1, rowHeight - 1);
 			}
 
 			if (aTree.isPaintIndentLines())
 			{
-				for (int i = 0, j = 0; i < aLevel; i++, j++)
+				for (int i = 0, j = 0; i < level; i++, j++)
 				{
-					Color color = aTree.getIndentLineColor(j);
+					Color color = styles.getIndentLineColor(j);
 
 					if (color != null)
 					{
@@ -200,13 +203,13 @@ public class PropertyNode<T>
 			{
 				boolean lastColumn = columnIndex == aTree.getColumns().size() - 1;
 				int cw = columnWidths[columnIndex];
-				int cx = columnIndex == 0 ? indent * aLevel : x0;
+				int cx = columnIndex == 0 ? indent * level : x0;
 
 				if (columnIndex == 0)
 				{
 					if (!mChildren.isEmpty())
 					{
-						BufferedImage icon = aTree.getIcon(mExpanded);
+						BufferedImage icon = styles.getIcon(mExpanded);
 						aGraphics.drawImage(icon, cx - indent + (indent - icon.getWidth()) / 2, aY + rowHeight / 2 - icon.getHeight() / 2, null);
 					}
 
@@ -218,33 +221,40 @@ public class PropertyNode<T>
 
 					if (icon != null)
 					{
-						cx += aTree.mIconWidth;
+						cx += styles.mIconWidth;
 
 						icon.paintIcon(aTree, aGraphics, cx - indent + (indent - icon.getIconWidth()) / 2, aY + (rowHeight - icon.getIconHeight()) / 2);
 					}
 
-					cx += aTree.mIconTextSpacing;
+					cx += styles.mIconTextSpacing;
 				}
 				else if (aTree.isPaintVerticalLines())
 				{
-					aGraphics.setColor(aTree.getVerticalLineColor());
+					aGraphics.setColor(styles.getVerticalLineColor());
 					aGraphics.drawLine(cx, aY, cx, aY + rowHeight - 1);
 
-					cx += aTree.mCellLeftMargin;
+					cx += styles.mCellLeftMargin;
 				}
 
 				Icon icon = aTree.getFieldValueProvider().getIcon(aTree, columnIndex, mValue);
 
 				if (icon != null)
 				{
-					cx += aTree.mIconWidth;
+					cx += styles.mIconWidth;
 
 					icon.paintIcon(aTree, aGraphics, cx - indent + (indent - icon.getIconWidth()) / 2, aY + (rowHeight - icon.getIconHeight()) / 2);
 				}
 
 				String text = aTree.getFieldValueProvider().getText(aTree, columnIndex, mValue);
 
-				new TextBox(text).setForeground(mForeground).setFont(mFont).setBounds(cx, aY, (lastColumn ? aWidth - cx : cw - cx + x0) - aTree.mCellRightMargin, rowHeight).setMaxLineCount(1).setBreakChars(null).setAnchor(Anchor.WEST).render(aGraphics);
+				new TextBox(text)
+					.setForeground(getActualForeground(aTree))
+					.setFont(getActualFont(aTree))
+					.setBounds(cx, aY, (lastColumn ? aWidth - cx : cw - cx + x0) - styles.mCellRightMargin, rowHeight)
+					.setMaxLineCount(1)
+					.setBreakChars(null)
+					.setAnchor(Anchor.WEST)
+					.render(aGraphics);
 
 				x0 += cw;
 			}
@@ -266,7 +276,7 @@ public class PropertyNode<T>
 
 	protected int getRowHeight(PropertyGrid aTree)
 	{
-		return mRowHeight == null ? aTree.mRowHeight : mRowHeight;
+		return mRowHeight != null ? mRowHeight : aTree.getStyles().mRowHeight;
 	}
 
 
@@ -331,5 +341,58 @@ public class PropertyNode<T>
 		}
 
 		return null;
+	}
+
+
+	private Color getActualBackground(PropertyGrid aGrid)
+	{
+		if (mBackground != null)
+		{
+			return mBackground;
+		}
+		Styles styles = aGrid.getStyles();
+		if (this instanceof PropertyTitleNode && styles.mTitleBackground != null)
+		{
+			return styles.mTitleBackground;
+		}
+		if (styles.mBackground != null)
+		{
+			return styles.mBackground;
+		}
+		return aGrid.getBackground();
+	}
+
+
+	private Color getActualForeground(PropertyGrid aGrid)
+	{
+		if (mForeground != null)
+		{
+			return mForeground;
+		}
+		Styles styles = aGrid.getStyles();
+		if (this instanceof PropertyTitleNode && styles.mTitleForeground != null)
+		{
+			return styles.mTitleForeground;
+		}
+		if (styles.mForeground != null)
+		{
+			return styles.mForeground;
+		}
+		return aGrid.getForeground();
+	}
+
+
+	private Font getActualFont(PropertyGrid aGrid)
+	{
+		if (mFont != null)
+		{
+			return mFont;
+		}
+		Styles styles = aGrid.getStyles();
+		if (this instanceof PropertyTitleNode && styles.mTitleFont != null)
+		{
+			return styles.mTitleFont;
+		}
+		return styles.mFont;
 	}
 }

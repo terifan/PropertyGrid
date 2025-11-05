@@ -63,7 +63,7 @@ public class PropertyGridColumnHeader extends JPanel
 //			width += Math.abs(columns.get(columnIndex).getWidth());
 //		}
 
-		return new Dimension(1, mTree.getColumnHeaderHeight());
+		return new Dimension(1, mTree.getStyles().getColumnHeaderHeight());
 	}
 
 

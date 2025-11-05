@@ -28,52 +28,30 @@ import javax.swing.SwingUtilities;
 
 public class PropertyGrid<T> extends JPanel implements Scrollable
 {
-	protected BufferedImage mExpandIcon;
-	protected BufferedImage mCollapseIcon;
-	protected HashMap<Integer, Color> mIndentBackgroundColor;
-	protected HashMap<Integer, Color> mIndentLineColor;
 	protected ArrayList<PropertyGridColumn> mColumns;
+	protected FieldValueProvider<T> mFieldValueProvider;
 	protected PropertyNode mTreeRoot;
 	protected PropertyNode mRolloverNode;
 	protected PropertyNode mSelectedNode;
-	protected int mIndentWidth;
-	protected int mRowHeight;
-	protected int mColumnHeaderHeight;
-	protected int mIconWidth;
-	protected int mIconTextSpacing;
 	protected boolean mPaintRootNode;
 	protected boolean mPaintIndentLines;
 	protected boolean mPaintHeaderRow;
-	protected boolean PaintHorizontalLines;
-	protected boolean PaintVerticalLines;
-	public boolean mWindowFocused;
+	protected boolean mPaintHorizontalLines;
+	protected boolean mPaintVerticalLines;
+	protected boolean mCompactFirstLevel;
+	protected boolean mWindowFocused;
 	protected boolean mHighlightFullRow;
-	protected int mExpandWidth;
-	protected int mIconStyle;
-	protected int mCellRightMargin;
-	protected int mCellLeftMargin;
-	protected FieldValueProvider<T> mFieldValueProvider;
-	protected Color mVerticalLineColor;
-	protected Color mHorizontalLineColor;
+	protected Styles mStyles;
 
 
 	public PropertyGrid()
 	{
-		mRowHeight = 24;
-		mIndentWidth = 19;
-		mColumnHeaderHeight = 20;
-		mIconWidth = 20;
-		mExpandWidth = 20;
-		mIconTextSpacing = 4;
-		mCellLeftMargin = 5;
-		mCellRightMargin = 5;
+		mFieldValueProvider = new FieldValueProvider<>();
+		mColumns = new ArrayList<>();
+		mStyles = new Styles();
 		mPaintRootNode = true;
 		mPaintHeaderRow = true;
-		mColumns = new ArrayList<>();
-		mFieldValueProvider = new FieldValueProvider<>();
-		mHorizontalLineColor = new Color(0xE0EAF9);
 
-		super.setBackground(Color.WHITE);
 		super.setOpaque(true);
 		super.setFocusable(true);
 
@@ -144,9 +122,10 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public void setPaintIndentLines(boolean aPaintIndentLines)
+	public PropertyGrid<T> setPaintIndentLines(boolean aPaintIndentLines)
 	{
 		mPaintIndentLines = aPaintIndentLines;
+		return this;
 	}
 
 
@@ -166,110 +145,39 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 
 	public boolean isPaintHorizontalLines()
 	{
-		return PaintHorizontalLines;
+		return mPaintHorizontalLines;
 	}
 
 
 	public PropertyGrid<T> setPaintHorizontalLines(boolean aPaintHorizontalLines)
 	{
-		PaintHorizontalLines = aPaintHorizontalLines;
+		mPaintHorizontalLines = aPaintHorizontalLines;
 		return this;
 	}
 
 
 	public boolean isPaintVerticalLines()
 	{
-		return PaintVerticalLines;
+		return mPaintVerticalLines;
 	}
 
 
 	public PropertyGrid<T> setPaintVerticalLines(boolean aPaintVerticalLines)
 	{
-		PaintVerticalLines = aPaintVerticalLines;
+		mPaintVerticalLines = aPaintVerticalLines;
 		return this;
 	}
 
 
-	public Color getIndentBackgroundColor(int aIndex)
+	public boolean isCompactFirstLevel()
 	{
-		return mIndentBackgroundColor == null ? null : mIndentBackgroundColor.get(aIndex);
+		return mCompactFirstLevel;
 	}
 
 
-	public void setIndentBackgroundColor(int aIndex, Color aColor)
+	public PropertyGrid<T> setCompactFirstLevel(boolean aCompactFirstLevel)
 	{
-		if (mIndentBackgroundColor == null)
-		{
-			mIndentBackgroundColor = new HashMap<>();
-		}
-		mIndentBackgroundColor.put(aIndex, aColor);
-	}
-
-
-	public Color getIndentLineColor(int aIndex)
-	{
-		return mIndentLineColor == null ? null : mIndentLineColor.get(aIndex);
-	}
-
-
-	public void setIndentLineColor(int aIndex, Color aColor)
-	{
-		if (mIndentLineColor == null)
-		{
-			mIndentLineColor = new HashMap<>();
-		}
-		mIndentLineColor.put(aIndex, aColor);
-	}
-
-
-	public int getIconWidth()
-	{
-		return mIconWidth;
-	}
-
-
-	public PropertyGrid<T> setIconWidth(int aIconWidth)
-	{
-		mIconWidth = aIconWidth;
-		return this;
-	}
-
-
-	public int getIconTextSpacing()
-	{
-		return mIconTextSpacing;
-	}
-
-
-	public PropertyGrid<T> setIconTextSpacing(int aIconTextSpacing)
-	{
-		mIconTextSpacing = aIconTextSpacing;
-		return this;
-	}
-
-
-	public int getIndentWidth()
-	{
-		return mIndentWidth;
-	}
-
-
-	public PropertyGrid<T> setIndentWidth(int aIndentWidth)
-	{
-		mIndentWidth = aIndentWidth;
-		return this;
-	}
-
-
-	public int getColumnHeaderHeight()
-	{
-		return mColumnHeaderHeight;
-	}
-
-
-	public PropertyGrid<T> setColumnHeaderHeight(int aColumnHeaderHeight)
-	{
-		mColumnHeaderHeight = aColumnHeaderHeight;
+		mCompactFirstLevel = aCompactFirstLevel;
 		return this;
 	}
 
@@ -300,19 +208,6 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public Color getVerticalLineColor()
-	{
-		return new Color(0xE0EAF9);
-	}
-
-
-	public PropertyGrid<T> setVerticalLineColor(Color aVerticalLineColor)
-	{
-		mVerticalLineColor = aVerticalLineColor;
-		return this;
-	}
-
-
 	@Override
 	protected void paintComponent(Graphics aGraphics)
 	{
@@ -320,7 +215,7 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 		int w = getWidth();
 		int h = getHeight();
 
-		aGraphics.setColor(getBackground());
+		aGraphics.setColor(mStyles.getBackground());
 		aGraphics.fillRect(0, y, w, h - y);
 
 		if (mTreeRoot != null)
@@ -374,7 +269,7 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	@Override
 	public int getScrollableUnitIncrement(Rectangle aVisibleRect, int aOrientation, int aDirection)
 	{
-		int v = aOrientation == SwingConstants.VERTICAL ? mRowHeight : mRowHeight;
+		int v = aOrientation == SwingConstants.VERTICAL ? mStyles.mRowHeight : mStyles.mRowHeight;
 		return v;
 	}
 
@@ -388,7 +283,7 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 			return aOrientation == SwingConstants.VERTICAL ? vp.getHeight() : vp.getWidth();
 		}
 
-		int v = aOrientation == SwingConstants.VERTICAL ? mRowHeight : mRowHeight;
+		int v = aOrientation == SwingConstants.VERTICAL ? mStyles.mRowHeight : mStyles.mRowHeight;
 		return v;
 	}
 
@@ -445,7 +340,7 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 			}
 
 			JScrollBar vsb = scrollPane.getVerticalScrollBar();
-			vsb.setUnitIncrement(mRowHeight);
+			vsb.setUnitIncrement(mStyles.mRowHeight);
 		}
 	}
 
@@ -469,44 +364,14 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public PropertyGrid<T> setIconStyle(int aIconStyle)
+	public Styles getStyles()
 	{
-		mIconStyle = aIconStyle;
-		mExpandIcon = null;
-		return this;
+		return mStyles;
 	}
 
 
-	protected BufferedImage getIcon(boolean aExpand)
+	public void setStyles(Styles aStyles)
 	{
-		if (mExpandIcon == null)
-		{
-			try
-			{
-				BufferedImage icons = ImageIO.read(PropertyNode.class.getResource("icons.png"));
-				if (mIconStyle == 0)
-				{
-					mExpandIcon = icons.getSubimage(11 * 16, 0, 16, 16);
-					mCollapseIcon = icons.getSubimage(10 * 16, 0, 16, 16);
-				}
-				else
-				{
-					mExpandIcon = icons.getSubimage(3 * 16, 0, 16, 16);
-					mCollapseIcon = icons.getSubimage(4 * 16, 0, 16, 16);
-				}
-			}
-			catch (IOException e)
-			{
-				throw new IllegalStateException(e);
-			}
-		}
-
-		return aExpand ? mExpandIcon : mCollapseIcon;
-	}
-
-
-	public Color getHorizontalLineColor()
-	{
-		return mHorizontalLineColor;
+		this.mStyles = aStyles;
 	}
 }
