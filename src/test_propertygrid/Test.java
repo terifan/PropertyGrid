@@ -1,4 +1,4 @@
-package org.terifan.propertygrid;
+package test_propertygrid;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,6 +17,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import org.terifan.propertygrid.PropertyGrid;
+import org.terifan.propertygrid.PropertyGridColumn;
+import org.terifan.propertygrid.PropertyNode;
+import org.terifan.propertygrid.PropertyTitleNode;
+import org.terifan.propertygrid.Styles;
+import org.terifan.propertygrid.StylesDark;
 
 
 public class Test extends JPanel
@@ -41,29 +47,29 @@ public class Test extends JPanel
 			panel.add(new JLabel(""));
 
 			JFrame frame = new JFrame();
-			frame.addWindowFocusListener(new WindowFocusListener()
-			{
-				@Override
-				public void windowGainedFocus(WindowEvent aEvent)
-				{
-					test1.mWindowFocused = true;
-					test2.mWindowFocused = true;
-					test3.mWindowFocused = true;
-					test4.mWindowFocused = true;
-					frame.repaint();
-				}
-
-
-				@Override
-				public void windowLostFocus(WindowEvent aEvent)
-				{
-					test1.mWindowFocused = false;
-					test2.mWindowFocused = false;
-					test3.mWindowFocused = false;
-					test4.mWindowFocused = false;
-					frame.repaint();
-				}
-			});
+//			frame.addWindowFocusListener(new WindowFocusListener()
+//			{
+//				@Override
+//				public void windowGainedFocus(WindowEvent aEvent)
+//				{
+//					test1.mWindowFocused = true;
+//					test2.mWindowFocused = true;
+//					test3.mWindowFocused = true;
+//					test4.mWindowFocused = true;
+//					frame.repaint();
+//				}
+//
+//
+//				@Override
+//				public void windowLostFocus(WindowEvent aEvent)
+//				{
+//					test1.mWindowFocused = false;
+//					test2.mWindowFocused = false;
+//					test3.mWindowFocused = false;
+//					test4.mWindowFocused = false;
+//					frame.repaint();
+//				}
+//			});
 			frame.add(panel);
 			frame.setSize(1600, 1200);
 			frame.setLocationRelativeTo(null);
@@ -79,7 +85,7 @@ public class Test extends JPanel
 
 	public static PropertyGrid test1() throws IOException
 	{
-		BufferedImage icons = ImageIO.read(Test.class.getResource("icons.png"));
+		BufferedImage icons = ImageIO.read(PropertyGrid.class.getResource("icons.png"));
 
 		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons));
 		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons));
@@ -140,7 +146,7 @@ public class Test extends JPanel
 
 	public static PropertyGrid test2() throws IOException
 	{
-		BufferedImage icons = ImageIO.read(Test.class.getResource("icons.png"));
+		BufferedImage icons = ImageIO.read(PropertyGrid.class.getResource("icons.png"));
 
 		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons));
 		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons)).setSelectable(false).setFont(new Font("arial", Font.BOLD, 12));
@@ -271,7 +277,7 @@ public class Test extends JPanel
 
 	public static PropertyGrid test4() throws IOException
 	{
-		BufferedImage icons = ImageIO.read(PropertyNode.class.getResource("icons.png"));
+		BufferedImage icons = ImageIO.read(PropertyGrid.class.getResource("icons.png"));
 
 		PropertyNode n0 = new PropertyNode(new Entity("Aaaaaa", icons, 5, 6, 9));
 		PropertyNode n1 = new PropertyNode(new Entity("Bbbbbbbb", icons, 5, 6, 9));

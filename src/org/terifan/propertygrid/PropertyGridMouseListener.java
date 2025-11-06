@@ -40,6 +40,9 @@ public class PropertyGridMouseListener extends MouseAdapter
 				mTree.invalidate();
 				mTree.repaint();
 			}
+
+			mTree.requestFocus();
+			mTree.repaint();
 		}
 	}
 

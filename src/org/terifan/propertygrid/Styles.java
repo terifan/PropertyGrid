@@ -60,15 +60,15 @@ public class Styles
 		mCellLeftMargin = 5;
 		mCellRightMargin = 5;
 
-		mNodeRolloverSelectedBackground = new Color(0x80D1E8FF, true);
-		mNodeRolloverBackground = new Color(0x80E5F3FB, true);
+		mNodeRolloverSelectedBackground = new Color(0xF0E5F3FB, true);
+		mNodeRolloverSelectedBorder = new Color(0xF070C0E7, true);
+		mNodeRolloverBackground = new Color(0x60E5F3FB, true);
+		mNodeRolloverBorder = new Color(0x6070C0E7, true);
+		mNodeSelectedBackground = new Color(0xA0E5F3FB, true);
+		mNodeSelectedBorder = new Color(0xA070C0E7, true);
 		c2 = new Color(0x80CBE8F6, true);
 		c3 = new Color(0xFFFFFF);
-		mNodeSelectedBackground = new Color(0x80F7F7F7, true);
-		mNodeRolloverSelectedBorder = new Color(0x8066A7E8, true);
-		mNodeRolloverBorder = new Color(0x8070C0E7, true);
 		t2 = new Color(0x8026A0DA, true);
-		mNodeSelectedBorder = new Color(0x80DEDEDE, true);
 
 		setIndentBackgroundColor(0, new Color(0xF4F7FC));
 	}

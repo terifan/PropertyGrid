@@ -74,15 +74,16 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 		super.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_HOME, InputEvent.CTRL_MASK), JComponent.WHEN_FOCUSED);
 		super.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_END, InputEvent.CTRL_MASK), JComponent.WHEN_FOCUSED);
 
-		MouseAdapter mouseAdapter = new PropertyGridMouseListener(this);
+		PropertyGridMouseListener mouseAdapter = new PropertyGridMouseListener(this);
 		addMouseListener(mouseAdapter);
 		addMouseMotionListener(mouseAdapter);
 	}
 
 
-	public void setRoot(PropertyNode aTreeNode)
+	public PropertyGrid<T> setRoot(PropertyNode aTreeNode)
 	{
 		mTreeRoot = aTreeNode;
+		return this;
 	}
 
 
@@ -92,9 +93,10 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public void addColumn(PropertyGridColumn aName)
+	public PropertyGrid<T> addColumn(PropertyGridColumn aName)
 	{
 		mColumns.add(aName);
+		return this;
 	}
 
 
@@ -110,9 +112,10 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public void setPaintRootNode(boolean aPaintRootNode)
+	public PropertyGrid<T> setPaintRootNode(boolean aPaintRootNode)
 	{
 		mPaintRootNode = aPaintRootNode;
+		return this;
 	}
 
 
@@ -370,8 +373,9 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	}
 
 
-	public void setStyles(Styles aStyles)
+	public PropertyGrid<T> setStyles(Styles aStyles)
 	{
-		this.mStyles = aStyles;
+		mStyles = aStyles;
+		return this;
 	}
 }
