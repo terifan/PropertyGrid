@@ -36,7 +36,8 @@ public class Test extends JPanel
 			PropertyGrid test3 = test3();
 			PropertyGrid test4 = test4();
 			PropertyGrid test5 = test3();
-			test5.setStyles(new StylesDark());
+			test5.setStyles(new StylesDark()
+			.setIconStyle(1));
 
 			JPanel panel = new JPanel(new GridLayout(2, 3, 20, 20));
 			panel.add(new JScrollPane(test1));
@@ -193,7 +194,7 @@ public class Test extends JPanel
 		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-1).setMinimumWidth(50));
 		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(75).setMinimumWidth(75));
 		tree.setRoot(n0);
-		tree.setPaintIndentLines(true);
+		tree.setPaintIndentLines(false);
 		tree.setHighlightFullRow(true);
 		tree.setStyles(new Styles()
 			.setIndentWidth(19)
@@ -259,9 +260,9 @@ public class Test extends JPanel
 		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-200));
 		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-150));
 		tree.setRoot(n0);
-		tree.setPaintHorizontalLines(true);
-		tree.setPaintVerticalLines(true);
-//		tree.setPaintIndentLines(true);
+		tree.setPaintHorizontalLines(false);
+		tree.setPaintVerticalLines(false);
+//		tree.setPaintIndentLines(false);
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
 		tree.setCompactFirstLevel(true);
@@ -269,6 +270,7 @@ public class Test extends JPanel
 			.setIndentWidth(20)
 			.setIconWidth(20)
 			.setIconTextSpacing(4)
+			.setIconStyle(1)
 		);
 
 		return tree;
@@ -325,9 +327,9 @@ public class Test extends JPanel
 		tree.addColumn(new PropertyGridColumn("B").setFieldName("b").setWidth(20));
 		tree.addColumn(new PropertyGridColumn("C").setFieldName("c").setWidth(20));
 		tree.setRoot(n0);
-//		tree.setPaintHorizontalLines(true);
-//		tree.setPaintVerticalLines(true);
-//		tree.setPaintIndentLines(true);
+//		tree.setPaintHorizontalLines(false);
+//		tree.setPaintVerticalLines(false);
+//		tree.setPaintIndentLines(false);
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
 		tree.setHighlightFullRow(true);
