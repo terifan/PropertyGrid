@@ -48,7 +48,7 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 	{
 		mFieldValueProvider = new FieldValueProvider<>();
 		mColumns = new ArrayList<>();
-		mStyles = new Styles();
+		mStyles = new StylesLight();
 		mPaintRootNode = true;
 		mPaintHeaderRow = true;
 		mPaintHorizontalLines = true;

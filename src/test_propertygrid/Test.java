@@ -3,8 +3,6 @@ package test_propertygrid;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -21,8 +19,8 @@ import org.terifan.propertygrid.PropertyGrid;
 import org.terifan.propertygrid.PropertyGridColumn;
 import org.terifan.propertygrid.PropertyNode;
 import org.terifan.propertygrid.PropertyTitleNode;
-import org.terifan.propertygrid.Styles;
 import org.terifan.propertygrid.StylesDark;
+import org.terifan.propertygrid.StylesLight;
 
 
 public class Test extends JPanel
@@ -129,12 +127,12 @@ public class Test extends JPanel
 		n0.add(n14);
 
 		PropertyGrid tree = new PropertyGrid();
-		tree.setStyles(new Styles().setIconStyle(1));
+		tree.setStyles(new StylesLight().setIconStyle(1));
 		tree.addColumn(new PropertyGridColumn("Key").setFieldName("key").setWidth(-200));
 		tree.addColumn(new PropertyGridColumn("Value").setFieldName("value").setWidth(-150));
 		tree.addColumn(new PropertyGridColumn("Type").setFieldName("type").setWidth(-100));
 		tree.setRoot(n0);
-		tree.setStyles(new Styles()
+		tree.setStyles(new StylesLight()
 			.setIndentWidth(20)
 			.setIconWidth(20)
 			.setIconTextSpacing(4)
@@ -196,7 +194,7 @@ public class Test extends JPanel
 		tree.setRoot(n0);
 		tree.setPaintIndentLines(false);
 		tree.setHighlightFullRow(true);
-		tree.setStyles(new Styles()
+		tree.setStyles(new StylesLight()
 			.setIndentWidth(19)
 			.setIconWidth(20)
 			.setIconTextSpacing(4)
@@ -266,7 +264,7 @@ public class Test extends JPanel
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
 		tree.setCompactFirstLevel(true);
-		tree.setStyles(new Styles()
+		tree.setStyles(new StylesLight()
 			.setIndentWidth(20)
 			.setIconWidth(20)
 			.setIconTextSpacing(4)
@@ -333,7 +331,7 @@ public class Test extends JPanel
 		tree.setPaintRootNode(false);
 		tree.setPaintHeaderRow(false);
 		tree.setHighlightFullRow(true);
-		tree.setStyles(new Styles()
+		tree.setStyles(new StylesLight()
 			.setIndentWidth(20)
 			.setIconWidth(20)
 			.setIconTextSpacing(4)

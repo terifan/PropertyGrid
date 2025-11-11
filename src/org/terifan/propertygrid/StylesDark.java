@@ -3,7 +3,7 @@ package org.terifan.propertygrid;
 import java.awt.Color;
 
 
-public class StylesDark extends Styles
+public class StylesDark extends StylesLight
 {
 	public StylesDark()
 	{
