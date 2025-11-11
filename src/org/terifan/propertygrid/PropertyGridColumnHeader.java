@@ -12,28 +12,30 @@ import org.terifan.ui.Utilities;
 
 public class PropertyGridColumnHeader extends JPanel
 {
-	protected PropertyGrid mTree;
+	protected PropertyGrid mPropertyGrid;
 
 
 	protected PropertyGridColumnHeader(PropertyGrid aTree)
 	{
-		mTree = aTree;
+		mPropertyGrid = aTree;
 	}
 
 
 	@Override
 	protected void paintComponent(Graphics aGraphics)
 	{
-		ArrayList<PropertyGridColumn> columns = mTree.getColumns();
+		Styles st = mPropertyGrid.getStyles();
+
+		ArrayList<PropertyGridColumn> columns = mPropertyGrid.getColumns();
 		int y = 0;
 		int w = getWidth();
 		int h = getHeight();
 
 		Utilities.enableTextAntialiasing(aGraphics);
 
-		aGraphics.setColor(new Color(0xFCFCFC));
+		aGraphics.setColor(st.mBackground);
 		aGraphics.fillRect(0, 0, w, h);
-		aGraphics.setColor(new Color(0xE8F1FB));
+		aGraphics.setColor(st.mHorizontalLineColor);
 		aGraphics.drawLine(0, h - 1, w, h - 1);
 
 		int[] columnWidths = computeColumnWidths(columns, w);
@@ -43,10 +45,10 @@ public class PropertyGridColumnHeader extends JPanel
 			PropertyGridColumn column = columns.get(columnIndex);
 			int cw = columnWidths[columnIndex];
 
-			aGraphics.setColor(new Color(0xE8F1FB));
+			aGraphics.setColor(st.mHorizontalLineColor);
 			aGraphics.drawLine(x + cw, 0, x + cw, h - 1);
 
-			new TextBox(column.getName()).setForeground(getForeground()).setBounds(x + 5, y, cw, h).setAnchor(Anchor.WEST).render(aGraphics);
+			new TextBox(column.getName()).setForeground(st.mForeground).setBounds(x + 5, y, cw, h).setAnchor(Anchor.WEST).render(aGraphics);
 
 			x += cw;
 		}
@@ -63,7 +65,7 @@ public class PropertyGridColumnHeader extends JPanel
 //			width += Math.abs(columns.get(columnIndex).getWidth());
 //		}
 
-		return new Dimension(1, mTree.getStyles().getColumnHeaderHeight());
+		return new Dimension(1, mPropertyGrid.getStyles().getColumnHeaderHeight());
 	}
 
 
