@@ -336,12 +336,10 @@ public class PropertyGrid<T> extends JPanel implements Scrollable
 				columnHeaderView.add(new PropertyGridColumnHeader(this), BorderLayout.NORTH);
 
 				scrollPane.setColumnHeaderView(columnHeaderView);
-				scrollPane.setBorder(null);
 			}
 			else
 			{
 				scrollPane.setColumnHeaderView(null);
-				scrollPane.setBorder(null);
 			}
 
 			JScrollBar vsb = scrollPane.getVerticalScrollBar();
